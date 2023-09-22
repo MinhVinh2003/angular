@@ -1,0 +1,241 @@
+<h2>Section title</h2>
+  <button (click)="showAddForm = true" class="but">Thêm</button>
+  <div class="table-responsive small">
+    <table class="table table-striped table-sm">
+      <thead>
+        <tr>
+          <td>id</td>
+          <td>index</td>
+          <td>isActive</td>
+          <td>picture</td>
+          <td>age</td>
+          <td>name</td>
+          <td>gender</td>
+          <td>company</td>
+          <td>email</td>
+          <td>phone</td>
+          <td>sửa</td>
+          <td>xóa</td>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let item of dulieu | paginate:{itemsPerPage:7,currentPage:p}  ">
+          <td>{{ item.id }}</td>
+          <td>{{ item.index }}</td>
+          <td>{{ item.isActive }}</td>
+          <td><img [src]="item.picture" alt="Profile Picture" width="50" height="50"></td>
+          <td>{{ item.age }}</td>
+          <td>{{ item.name }}</td>
+          <td>{{ item.gender }}</td>
+          <td>{{ item.company }}</td>
+          <td>{{ item.email }}</td>
+          <td>{{ item.phone }}</td>
+          <td><button (click)="editItem(item)" class="but">Sửa</button></td>
+          <td><button (click)="deleteItem(item)" class="but">Xóa</button></td>
+        </tr>
+
+      </tbody>
+    </table>
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  </div>
+
+     <!-- form sửa          -->
+  <div class="edit-form-container" *ngIf="showForm">
+    <div class="edit-form-overlay"></div>
+    <div class="edit-form">
+      <div class="edit-form-header">
+        <h3>Sửa thông tin khách hàng</h3>
+        <button class="close-button" (click)="cancelEdit()">Đóng</button>
+      </div>
+      <div class="edit-form-body">
+        <table>
+          <tr>
+            <td>
+              <label for="edit-name">id:</label>
+            </td>
+            <td>
+              <input id="edit-name" type="text" [(ngModel)]="editingItem.id" >
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="edit-name">index:</label>
+            </td>
+            <td>
+              <input id="edit-name" type="text" [(ngModel)]="editingItem.index" >
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="edit-name">isActive:</label>
+            </td>
+            <td>
+              <input id="edit-name" type="text" [(ngModel)]="editingItem.isActive" >
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="edit-name">picture:</label>
+            </td>
+            <td>
+              <input id="edit-name" type="text" [(ngModel)]="editingItem.picture" >
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="edit-name">Tên:</label>
+            </td>
+            <td>
+              <input id="edit-name" type="text" [(ngModel)]="editingItem.name" >
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="edit-age">Tuổi:</label>
+            </td>
+            <td>
+              <input id="edit-age" type="number" [(ngModel)]="editingItem.age" >
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="edit-gender">Giới tính:</label>
+            </td>
+            <td>
+              <input id="edit-gender" type="text" [(ngModel)]="editingItem.gender" >
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="edit-company">Công ty:</label>
+            </td>
+            <td>
+              <input id="edit-company" type="text" [(ngModel)]="editingItem.company" >
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="edit-email">Email:</label>
+            </td>
+            <td>
+              <input id="edit-email" type="email" [(ngModel)]="editingItem.email" >
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="edit-phone">Điện thoại:</label>
+            </td>
+            <td>
+              <input id="edit-phone" type="tel" [(ngModel)]="editingItem.phone">
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="edit-form-footer">
+        <button class="save-button" (click)="saveEditedItem()">Lưu</button>
+        <button class="cancel-button" (click)="cancelEdit()">Hủy bỏ</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="add-form-container" *ngIf="showAddForm">
+    <!-- Form thêm khách hàng -->
+    <div class="add-form-overlay"></div>
+    <div class="add-form">
+      <div class="add-form-header">
+        <h3>Thêm thông tin khách hàng</h3>
+        <button class="close-button" (click)="cancelAdd()">Đóng</button>
+      </div>
+      <div class="add-form-body">
+        <table>
+          <!-- Các trường dữ liệu của form thêm -->
+          <tr>
+            <td>
+              <label for="add-name">id:</label>
+            </td>
+            <td>
+              <input id="add-name" type="text" [(ngModel)]="newItem.id">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="add-name">index:</label>
+            </td>
+            <td>
+              <input id="add-name" type="text" [(ngModel)]="newItem.index">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="add-name">isActive:</label>
+            </td>
+            <td>
+              <input id="add-name" type="text" [(ngModel)]="newItem.isActive">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="add-name">picture:</label>
+            </td>
+            <td>
+              <input id="add-name" type="text" [(ngModel)]="newItem.picture">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="add-name">age:</label>
+            </td>
+            <td>
+              <input id="add-name" type="text" [(ngModel)]="newItem.age">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="add-name">name:</label>
+            </td>
+            <td>
+              <input id="add-name" type="text" [(ngModel)]="newItem.name">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="add-name">gender:</label>
+            </td>
+            <td>
+              <input id="add-name" type="text" [(ngModel)]="newItem.id">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="add-name">company:</label>
+            </td>
+            <td>
+              <input id="add-name" type="text" [(ngModel)]="newItem.company">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="add-name">email	:</label>
+            </td>
+            <td>
+              <input id="add-name" type="text" [(ngModel)]="newItem.email	">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="add-name">phone:</label>
+            </td>
+            <td>
+              <input id="add-name" type="text" [(ngModel)]="newItem.phone">
+            </td>
+          </tr>
+          <!-- Các trường dữ liệu khác -->
+        </table>
+      </div>
+      <div class="add-form-footer">
+        <button class="save-button" (click)="saveNewItem()">Lưu</button>
+        <button class="cancel-button" (click)="cancelAdd()">Hủy bỏ</button>
+      </div>
+    </div>
+  </div>
